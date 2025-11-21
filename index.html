@@ -470,7 +470,8 @@ section {padding:100px 5%; max-width:1500px; margin:0 auto;}
             <div class="tab-button active" data-tab="cubs">🦁 Math Cubs (K–5)</div>
             <div class="tab-button" data-tab="crabs">🦀 Math Crabs (6th+)</div>
         </div>
-        <form action="https://formspree.io/f/your-form-id-here" method="POST">
+        <form id="assessmentForm" action="https://formspree.io/f/mrbjwkkq" method="POST">
+            <input type="hidden" name="_next" value="https://yourusername.github.io/yourrepo/thankyou.html" />
             <input type="hidden" name="program" id="programType" value="Math Cubs">
             <div class="form-group">
                 <label>Parent Name</label>
@@ -569,12 +570,33 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Modal Logic (Assessment Modal - Unchanged)
+// Modal Logic (Assessment Modal - UPDATED TO USE CUB/CRAB SPECIFIC FORMS)
 const assessmentModal = document.getElementById('assessmentModal');
+const assessmentForm = document.getElementById('assessmentForm'); // Get the form element
 const openBtns = document.querySelectorAll('.open-modal');
 const closeBtn = document.querySelector('#assessmentModal .close');
 const tabButtons = document.querySelectorAll('.tab-button');
 const programInput = document.getElementById('programType');
+
+// Define your Formspree IDs here
+const formIds = {
+    cubs: 'mrbjwkkq', // Math Cub Form ID
+    crabs: 'mnnwkvvz'  // Math Crab Form ID
+};
+
+function switchTab(tabName) {
+    tabButtons.forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.getAttribute('data-tab') === tabName) {
+            tab.classList.add('active');
+        }
+    });
+    
+    const formId = formIds[tabName];
+    // Set the form action dynamically based on the active tab
+    assessmentForm.action = `https://formspree.io/f/${formId}`;
+    programInput.value = tabName === 'cubs' ? 'Math Cubs' : 'Math Crabs';
+}
 
 openBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -599,23 +621,17 @@ window.onclick = (e) => {
     if (e.target === lessonModal) lessonModal.style.display = 'none';
 };
 
-function switchTab(tabName) {
-    tabButtons.forEach(tab => {
-        tab.classList.remove('active');
-        if (tab.getAttribute('data-tab') === tabName) {
-            tab.classList.add('active');
-        }
-    });
-    programInput.value = tabName === 'cubs' ? 'Math Cubs' : 'Math Crabs';
-}
-
 tabButtons.forEach(tab => {
     tab.addEventListener('click', () => {
         switchTab(tab.getAttribute('data-tab'));
     });
 });
 
-// 2 & 3. Lesson Modal Logic (More Topics & Longer Content)
+// Initialize form action to Cubs by default
+switchTab('cubs');
+
+
+// 2 & 3. Lesson Modal Logic (More Topics & Longer Content - Unchanged)
 const lessonModal = document.getElementById('lessonModal');
 const lessonTitle = document.getElementById('lessonTitle');
 const lessonContent = document.getElementById('lessonContent');
@@ -881,7 +897,7 @@ const lessons = {
                 <li>m is the Slope: The slope measures the steepness and direction of the line. It is calculated as "rise over run" (change in y / change in x).</li>
                 <li>b is the y-intercept: This is the point where the line crosses the vertical y-axis. It is the starting point for graphing.</li>
             </ul>
-            <h3>How to Graph</h3>
+            <p>How to Graph</p>
             <p>To graph an equation in this form: 1. Start by plotting the y-intercept ($b$). 2. Use the slope ($m$) to find the next point: go "up" (or down) by the rise, and "right" (or left) by the run. 3. Connect the points with a straight line. 
 
 [Image of a coordinate plane showing the graph of y=2x+1 highlighting the y-intercept and the slope triangle]
