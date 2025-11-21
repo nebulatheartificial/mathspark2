@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MathSpark – Send a Message</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet"/>
+<style>
+/* Basic Styles (Copied from your index.html styles for consistency) */
+:root {
+--white:#fff;
+--light:#f8f9fa;
+--dark:#1e293b;
+--green:#4ade80;
+--blue:#38bdf8;
+--purple:#c084fc;
+--yellow:#fbbf24;
+}
+* {margin:0;padding:0;box-sizing:border-box;}
+body {
+    font-family:'Poppins',sans-serif;
+    background:var(--light);
+    color:var(--dark);
+    line-height:1.7;
+    padding-top: 50px;
+}
+h1,h2,h3,h4 {
+    font-family:'Fredoka One',cursive;
+    letter-spacing:-0.5px;
+}
+/* Form Specific Styles */
+.message-container { 
+    max-width: 700px; 
+    margin: 50px auto; 
+    padding: 40px; 
+    background: white; 
+    border-radius: 25px; 
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1); 
+}
+.message-container h1 {
+    font-size:3rem; 
+    margin-bottom:1rem; 
+    background:linear-gradient(135deg,var(--blue),var(--green),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-align:center;
+}
+.message-container p {
+    text-align:center; 
+    font-size:1.2rem; 
+    color:#475569; 
+    margin-bottom:2rem;
+}
+.form-group {
+    margin-bottom:1.5rem;
+    text-align: left;
+}
+.form-group label {
+    display:block; 
+    margin-bottom:0.5rem; 
+    font-weight:600; 
+    color:var(--dark);
+}
+.form-group input, .form-group select, .form-group textarea {
+    width:100%; 
+    padding:1rem; 
+    border:2px solid #e2e8f0; 
+    border-radius:12px; 
+    font-family:'Poppins',sans-serif; 
+    font-size:1rem; 
+    transition:border 0.3s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline:none; 
+    border-color:var(--blue); 
+    box-shadow:0 0 0 4px rgba(56,189,248,0.2);
+}
+.submit-btn {
+    background:linear-gradient(135deg,var(--blue),var(--green)); 
+    color:white; 
+    padding:1.2rem 3rem; 
+    border:none; 
+    border-radius:50px; 
+    font-size:1.2rem; 
+    font-weight:600; 
+    cursor:pointer; 
+    width:100%; 
+    transition:all 0.4s;
+}
+.submit-btn:hover {
+    transform:translateY(-4px); 
+    box-shadow:0 15px 30px rgba(56,189,248,0.4);
+}
+.back-btn { 
+    padding: 10px 20px; 
+    background: #c084fc; 
+    color: white; 
+    text-decoration: none; 
+    border-radius: 50px; 
+    display: inline-block; 
+    margin-top: 20px; 
+    font-weight: 500;
+}
+</style>
+</head>
+<body>
+    <div class="message-container">
+        <h1>Send Us a Message 📧</h1>
+        <p>We're here to answer any questions about our programs, scheduling, or math topics.</p>
+        
+        <form action="https://formspree.io/f/your-form-id-here" method="POST">
+            <div class="form-group">
+                <label for="parent_name">Your Name (Parent/Guardian)</label>
+                <input type="text" id="parent_name" name="parent_name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="student_name">Student's Name</label>
+                <input type="text" id="student_name" name="student_name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="_replyto" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number (Optional)</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            
+            <div class="form-group">
+                <label for="topic">Message Topic</label>
+                <select id="topic" name="message_topic" required>
+                    <option value="">-- Select Topic --</option>
+                    <option value="Assessment Request">Free Assessment Request</option>
+                    <option value="Billing Question">Billing or Pricing Question</option>
+                    <option value="Scheduling">Scheduling or Time Slots</option>
+                    <option value="Curriculum/Program Details">Curriculum/Program Details</option>
+                    <option value="Other Question">Other Question / General Inquiry</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
+</body>
+</html>
