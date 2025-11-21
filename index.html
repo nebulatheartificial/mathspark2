@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MathSpark – Math Cubs & Math Crabs</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet"/>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<style>
+:root {
+--white:#fff;
+--light:#f8f9fa;
+--dark:#1e293b;
+--green:#4ade80;
+--blue:#38bdf8;
+--purple:#c084fc;
+--yellow:#fbbf24;
+}
+* {margin:0;padding:0;box-sizing:border-box;}
+body {
+    font-family:'Poppins',sans-serif;
+    background:var(--light);
+    color:var(--dark);
+    line-height:1.7;
+    overflow-x:hidden;
+}
+html {
+    scroll-behavior: smooth; /* Ensures smooth scrolling */
+}
+h1,h2,h3,h4 {
+    font-family:'Fredoka One',cursive;
+    letter-spacing:-0.5px;
+}
+header {
+    position:fixed;
+    top:0;left:0;right:0;
+    background:rgba(255,255,255,0.97);
+    backdrop-filter:blur(15px);
+    z-index:1000;
+    padding:1rem 5%;
+    box-shadow:0 4px 30px rgba(0,0,0,0.08);
+}
+nav {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:1500px;
+    margin:auto;
+}
+.logo {
+    font-size:2.4rem;
+    background:linear-gradient(135deg,var(--green),var(--blue));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.nav-links a {
+    margin-left:1.8rem;
+    text-decoration:none;
+    color:var(--dark);
+    font-weight:500;
+    transition:color .3s;
+}
+.nav-links a:hover {color:var(--blue);}
+.hero {
+    height:90vh;
+    min-height:600px;
+    background:linear-gradient(135deg,#f0f9ff,#ecfdf5);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    padding-bottom: 70px;
+}
+#particles {
+    position:absolute;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+}
+.hero h1 {
+    font-size:4.8rem;
+    background:linear-gradient(135deg,var(--blue),var(--green),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:0.8rem;
+}
+.hero p {
+    font-size:1.4rem;
+    color:#475569;
+    margin:1.5rem 0 2.5rem;
+}
+.btn {
+    padding:1rem 3rem;
+    margin:0.8rem;
+    border-radius:50px;
+    font-weight:600;
+    text-decoration:none;
+    font-size:1.1rem;
+    transition:all .4s;
+    display:inline-block;
+    cursor:pointer;
+}
+.btn-primary {
+    background:var(--blue);
+    color:white;
+    box-shadow:0 10px 25px rgba(56,189,248,0.4);
+}
+.btn-primary:hover {
+    transform:translateY(-5px) scale(1.03);
+}
+/* Topic Carousel */
+.topic-carousel {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    left: -19%;
+    transform: translateX(-50%);
+    bottom: -120px;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+.topic-list {
+    display: inline-block;
+    animation: scroll-topics 60s linear infinite;
+    padding: 0 5%;
+}
+.topic-list:hover {animation-play-state: paused;}
+.topic-tag {
+    display: inline-block;
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--blue);
+    padding: 1.2rem 2.5rem;
+    margin-right: 2rem;
+    border-radius: 50px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+@keyframes scroll-topics {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+section {padding:100px 5%; max-width:1500px; margin:0 auto;}
+.section-title {
+    text-align:center;
+    font-size:3.5rem;
+    background:linear-gradient(135deg,var(--green),var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:4rem;
+}
+.cards {display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:2rem;}
+.card {
+    position:relative;
+    background:white;
+    border-radius:20px;
+    padding:3rem 2.5rem;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    transition:.5s;
+    text-align:center;
+}
+.card:hover {transform:translateY(-10px); box-shadow:0 20px 40px rgba(0,0,0,0.15);}
+.card div:first-child {font-size: 6rem; margin-bottom: 0.5rem;}
+.card h3 {font-size: 1.8rem; margin-bottom: 0.5rem;}
+.card::before {
+    content:''; position:absolute; top:0; left:0; width:100%; height:8px;
+    background:var(--blue); border-radius:20px 20px 0 0;
+}
+.card.green::before {background:var(--green);}
+
+/* Testimonials */
+#testimonials {padding: 60px 5%; background: #eef2ff;}
+.testimonial-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: auto;}
+.testimonial-item-static {background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); text-align: center; border-left: 8px solid var(--purple); transition: transform 0.3s;}
+.testimonial-item-static:hover {transform: translateY(-5px);}
+.testimonial-item-static h4 {font-size: 1.3rem; margin-bottom: 10px; color: var(--blue);}
+.testimonial-item-static p {font-size: 1.1rem; font-style: italic; color: #475569; margin-bottom: 10px;}
+.testimonial-item-static .author {font-size: 1rem; font-style: normal; font-weight: 600; color: var(--dark);}
+
+/* FAQ */
+.faq-accordion {max-width: 800px; margin: auto;}
+.faq-group {margin-bottom: 1rem; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.08);}
+.faq-input {display: none;}
+.faq-question-label {display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #f8fafc; font-weight: 600; font-size: 1.1rem; cursor: pointer;}
+.faq-question-label:hover {background: #eef2ff;}
+.faq-icon {font-size: 1.8rem; transition: transform 0.3s;}
+.faq-answer-content {max-height: 0; overflow: hidden; padding: 0 1.5rem; transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out; background: white;}
+.faq-input:checked + .faq-question-label .faq-icon {transform: rotate(45deg);}
+.faq-input:checked + .faq-question-label + .faq-answer-content {max-height: 500px; padding: 1.5rem;}
+
+/* Final CTA */
+.final-cta {
+    background:linear-gradient(135deg,var(--blue),var(--green),var(--purple));
+    color:white;
+    text-align:center;
+    padding:160px 5%;
+}
+.final-cta h2 {font-size:4.5rem; margin-bottom:1rem;}
+.final-cta .btn-primary {background:white; color:var(--blue); font-size:1.3rem; padding:1.4rem 4rem;}
+.final-cta .btn-primary:hover {transform: translateY(-5px) scale(1.03); box-shadow:0 10px 25px rgba(255, 255, 255, 0.4);}
+
+/* Modal & Form styles */
+.modal {display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; overflow:auto; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px);}
+.modal-content {background:white; margin:5% auto; padding:40px; border-radius:25px; width:90%; max-width:700px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.2); animation:modalopen 0.5s;}
+@keyframes modalopen {from{transform:scale(0.7);opacity:0} to{transform:scale(1);opacity:1}}
+.close {position:absolute; top:15px; right:25px; font-size:2.5rem; font-weight:300; color:#aaa; cursor:pointer;}
+.close:hover {color:var(--dark);}
+.tabs {display:flex; margin-bottom:30px; border-radius:15px; overflow:hidden; box-shadow:0 8px 25px rgba(0,0,0,0.1);}
+.tab-button {flex:1; padding:1.2rem; text-align:center; background:#f1f5f9; font-family:'Fredoka One',cursive; font-size:1.4rem; cursor:pointer; transition:all 0.3s;}
+.tab-button.active {background:linear-gradient(135deg,var(--green),var(--blue)); color:white;}
+.tab-button:nth-child(1):not(.active) {color:var(--green);}
+.tab-button:nth-child(2):not(.active) {color:var(--blue);}
+.form-group {margin-bottom:1.5rem;}
+.form-group label {display:block; margin-bottom:0.5rem; font-weight:600; color:var(--dark);}
+.form-group input, .form-group select, .form-group textarea {width:100%; padding:1rem; border:2px solid #e2e8f0; border-radius:12px; font-family:'Poppins',sans-serif; font-size:1rem; transition:border 0.3s;}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {outline:none; border-color:var(--blue); box-shadow:0 0 0 4px rgba(56,189,248,0.2);}
+.submit-btn {background:linear-gradient(135deg,var(--blue),var(--green)); color:white; padding:1.2rem 3rem; border:none; border-radius:50px; font-size:1.2rem; font-weight:600; cursor:pointer; width:100%; transition:all 0.4s;}
+.submit-btn:hover {transform:translateY(-4px); box-shadow:0 15px 30px rgba(56,189,248,0.4);}
+
+/* Interactive Sidebar Styles */
+.topic-sidebar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    z-index: 999;
+    padding: 10px 10px 10px 20px;
+    background: var(--light); 
+    border-radius: 20px 0 0 20px;
+    box-shadow: -8px 0 20px rgba(0, 0, 0, 0.15);
+    border-left: 5px solid var(--purple);
+}
+.topic-sidebar-btn {
+    background: linear-gradient(90deg, var(--purple), #af70f0);
+    color: white;
+    border: none;
+    padding: 18px 20px;
+    border-radius: 50px 0 0 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1.1rem;
+    box-shadow: 0 6px 15px rgba(192, 132, 252, 0.4);
+    white-space: nowrap;
+    transform: translateX(10px);
+}
+.topic-sidebar-btn:hover {
+    background: var(--blue);
+    transform: translateX(0px);
+    box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
+}
+@media (max-width: 1200px) {
+    .topic-sidebar {
+        display: none;
+    }
+}
+
+/* Lesson Modal Specific Styles (Font Change) */
+#lessonModal .lesson-content {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    text-align: left;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    font-family: Georgia, serif; 
+}
+#lessonModal .lesson-content h3 {
+    color: var(--blue);
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--green);
+    padding-bottom: 5px;
+    font-family:'Fredoka One',cursive; /* Keep headings bold/fun */
+}
+#lessonModal .lesson-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #334155;
+}
+#lessonModal .lesson-cta {
+    display: block;
+    text-align: center;
+    margin-top: 1.5rem;
+    font-weight: 500;
+}
+
+/* Style for the clickable topic list inside the modal */
+.topic-list-group button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: white;
+    color: var(--dark);
+    border: 1px solid #e2e8f0;
+    padding: 1rem 1.5rem;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.topic-list-group button:hover {
+    background: #eef2ff;
+    border-color: var(--blue);
+    transform: translateX(5px);
+}
+</style>
+</head>
+<body id="top">
+<header>
+<nav>
+    <div class="logo">MathSpark</div>
+    <div class="nav-links">
+        <a href="#top">Home</a>
+        <a href="#programs">Programs</a>
+        <a href="#testimonials">Success Stories</a>
+        <a href="message.html">Message Us 💬</a> </div>
+</nav>
+</header>
+
+<section class="hero">
+    <canvas id="particles"></canvas>
+    <div class="hero-content" data-aos="fade-up">
+        <h1>Ignite a Lifelong Love for Math</h1>
+        <p data-aos="fade-up" data-aos-delay="200">Visual • One-on-One • Actually Fun</p>
+        <div data-aos="fade-up" data-aos-delay="400">
+            <a href="#" class="btn btn-primary open-modal">Start Free Assessment</a>
+        </div>
+        <div class="topic-carousel" data-aos="fade-up" data-aos-delay="600">
+            <div class="topic-list">
+                <div>
+                    <span class="topic-tag">Fractions & Decimals</span>
+                    <span class="topic-tag">Word Problems</span>
+                    <span class="topic-tag">Pre-Algebra</span>
+                    <span class="topic-tag">Geometry Proofs</span>
+                    <span class="topic-tag">Early Multiplication</span>
+                    <span class="topic-tag">Quadratic Equations</span>
+                    <span class="topic-tag">Measurement & Data</span>
+                    <span class="topic-tag">Functions</span>
+                    <span class="topic-tag">Middle School Math</span>
+                    <span class="topic-tag">Angles & Shapes</span>
+                    <span class="topic-tag">Counting & Numeracy</span>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="programs" style="background:white;">
+    <h2 class="section-title" data-aos="fade-up">Choose Your Pride</h2>
+    <div class="cards">
+        <div class="card green" data-aos="zoom-in">
+            <div>🦁</div>
+            <h3>Math Cubs (K–5)</h3>
+            <p>Initial session is for a comprehensive level assessment. Following this, we focus on foundational concepts and hands-on understanding to build confidence.</p>
+            <a href="#" class="btn btn-primary open-modal" data-program="cubs">Enroll Math Cubs</a>
+        </div>
+        <div class="card blue" data-aos="zoom-in" data-aos-delay="200">
+            <div>🦀</div>
+            <h3>Math Crabs (6th Grade and Above)</h3>
+            <p>Algebra, geometry, and pre-calc transformed into powerful, real-world applications and critical thinking.</p>
+            <a href="#" class="btn btn-primary open-modal" data-program="crabs">Enroll Math Crabs</a>
+        </div>
+    </div>
+</section>
+
+<section id="testimonials">
+    <h2 class="section-title" data-aos="fade-up">Real-Life Success Stories 🚀</h2>
+    <div class="testimonial-grid">
+        <div class="testimonial-item-static" data-aos="fade-up">
+            <h4>Parent of Algebra 1 Student</h4>
+            <p>"These classes brought my son's grades up from close to failing (D-) to a comfortable pass. Now he's excelling in Algebra 1 with an A! I can't recommend MathSpark enough."</p>
+            <p class="author">— Sarah L. (Phoenix, AZ)</p>
+        </div>
+        <div class="testimonial-item-static" data-aos="fade-up" data-aos-delay="100">
+            <h4>Parent of 4th Grader</h4>
+            <p>"My daughter hated math worksheets. MathSpark made it visual and fun. She now solves word problems before I even finish reading them!"</p>
+            <p class="author">— Michael B. (Austin, TX)</p>
+        </div>
+        <div class="testimonial-item-static" data-aos="fade-up" data-aos-delay="200">
+            <h4>Guardian of 7th Grader</h4>
+            <p>"Before MathSpark, my student thought fractions were impossible. After 8 weeks, they aced their unit test. The one-on-one time makes a huge difference."</p>
+            <p class="author">— Jessica K. (Seattle, WA)</p>
+        </div>
+        <div class="testimonial-item-static" data-aos="fade-up" data-aos-delay="300">
+            <h4>Parent of High Schooler (Pre-Calc)</h4>
+            <p>"Our biggest struggle was test anxiety. The Crabs program not only boosted knowledge but also built confidence. He got the score he needed on his final!"</p>
+            <p class="author">— Emily W. (Miami, FL)</p>
+        </div>
+        <div class="testimonial-item-static" data-aos="fade-up" data-aos-delay="400">
+            <h4>Parent of 9th Grader (Geometry)</h4>
+            <p>"MathSpark helped my daughter visualize geometry concepts she was struggling with in school. Her understanding of proofs improved dramatically within a month."</p>
+            <p class="author">— Robert H. (Chicago, IL)</p>
+        </div>
+        <div class="testimonial-item-static" data-aos="fade-up" data-aos-delay="500">
+            <h4>Homeschool Parent (Grade 2)</h4>
+            <p>"We needed a structured curriculum that was still engaging. MathSpark's Cub program turned counting and early multiplication into her favorite time of the day."</p>
+            <p class="author">— David R. (Denver, CO)</p>
+        </div>
+    </div>
+</section>
+
+<section id="faq" style="background:white;">
+    <h2 class="section-title" data-aos="fade-up">Frequently Asked Questions</h2>
+    <div class="faq-accordion">
+        <div class="faq-group" data-aos="fade-up">
+            <input type="checkbox" id="faq1" class="faq-input">
+            <label for="faq1" class="faq-question-label">How often are sessions?<span class="faq-icon">+</span></label>
+            <div class="faq-answer-content">Students attend 1–2 sessions per week (60 minutes each), complemented by daily focused practice online.</div>
+        </div>
+        <div class="faq-group" data-aos="fade-up" data-aos-delay="100">
+            <input type="checkbox" id="faq2" class="faq-input">
+            <label for="faq2" class="faq-question-label">Who are the tutors?<span class="faq-icon">+</span></label>
+            <div class="faq-answer-content">Our tutors are dedicated high schoolers from the top 10% of their classes, trained in visualization methods and carefully monitored to provide engaging, peer-based instruction.</div>
+        </div>
+        <div class="faq-group" data-aos="fade-up" data-aos-delay="200">
+            <input type="checkbox" id="faq3" class="faq-input">
+            <label for="faq3" class="faq-question-label">Is there a long-term contract?<span class="faq-icon">+</span></label>
+            <div class="faq-answer-content">No contracts! Students can continue as long as they are learning and improving their understanding of mathematics.</div>
+        </div>
+        <div class="faq-group" data-aos="fade-up" data-aos-delay="300">
+            <input type="checkbox" id="faq4" class="faq-input">
+            <label for="faq4" class="faq-question-label">What platform do you use?<span class="faq-icon">+</span></label>
+            <div class="faq-answer-content">MathSpark is primarily online using interactive tools compatible with any modern browser. Optional local events may be offered depending on location.</div>
+        </div>
+        <div class="faq-group" data-aos="fade-up" data-aos-delay="400">
+            <input type="checkbox" id="faq5" class="faq-input">
+            <label for="faq5" class="faq-question-label">What ages do you serve?<span class="faq-icon">+</span></label>
+            <div class="faq-answer-content">K–5 for foundational math (Math Cubs) and grades 6+ for Algebra, Geometry, Pre-Calculus, and enrichment programs (Math Crabs).</div>
+        </div>
+        <div class="faq-group" data-aos="fade-up" data-aos-delay="500">
+            <input type="checkbox" id="faq6" class="faq-input">
+            <label for="faq6" class="faq-question-label">How much does it cost?<span class="faq-icon">+</span></label>
+            <div class="faq-answer-content">Pricing is flexible depending on the program and frequency of sessions. Parents can select packages that best suit their needs. Contact us for a personalized quote.</div>
+        </div>
+    </div>
+</section>
+
+<section class="final-cta">
+    <h2>Ready to Watch Your Child Roar at Math?</h2>
+    <p>Join hundreds of families who’ve turned “I hate math” into “I understand this!”</p>
+    <div style="margin-top:2rem;">
+        <a href="#" class="btn btn-primary open-modal">Start Free Assessment</a>
+    </div>
+</section>
+
+<div id="assessmentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">×</span>
+        <h2 style="text-align:center; background:linear-gradient(135deg,var(--blue),var(--green),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:3rem; margin-bottom:1rem;">
+            Free Math Assessment
+        </h2>
+        <p style="text-align:center; font-size:1.2rem; color:#475569; margin-bottom:2rem;">
+            Let's find the perfect spark for your child!
+        </p>
+        <div class="tabs">
+            <div class="tab-button active" data-tab="cubs">🦁 Math Cubs (K–5)</div>
+            <div class="tab-button" data-tab="crabs">🦀 Math Crabs (6th+)</div>
+        </div>
+        <form action="https://formspree.io/f/your-form-id-here" method="POST">
+            <input type="hidden" name="program" id="programType" value="Math Cubs">
+            <div class="form-group">
+                <label>Parent Name</label>
+                <input type="text" name="parent_name" required>
+            </div>
+            <div class="form-group">
+                <label>Child's Name</label>
+                <input type="text" name="child_name" required>
+            </div>
+            <div class="form-group">
+                <label>Child's Current Grade</label>
+                <select name="grade" required>
+                    <option value="">Select Grade</option>
+                    <option value="Kindergarten">Kindergarten</option>
+                    <option value="1st">1st Grade</option>
+                    <option value="2nd">2nd Grade</option>
+                    <option value="3rd">3rd Grade</option>
+                    <option value="4th">4th Grade</option>
+                    <option value="5th">5th Grade</option>
+                    <option value="6th">6th Grade</option>
+                    <option value="7th">7th Grade</option>
+                    <option value="8th">8th Grade</option>
+                    <option value="9th">9th Grade (Freshman)</option>
+                    <option value="10th">10th Grade (Sophomore)</option>
+                    <option value="11th">11th Grade (Junior)</option>
+                    <option value="12th">12th Grade (Senior)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="_replyto" required>
+            </div>
+            <div class="form-group">
+                <label>Phone (optional)</label>
+                <input type="tel" name="phone">
+            </div>
+            <div class="form-group">
+                <label>Anything we should know? (struggles, goals, etc.)</label>
+                <textarea name="message" rows="4"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Submit & Schedule Free Assessment 🎉</button>
+        </form>
+    </div>
+</div>
+
+<div id="lessonModal" class="modal">
+    <div class="modal-content">
+        <span class="close lesson-close">×</span>
+        <h2 id="lessonTitle" style="text-align:center; background:linear-gradient(135deg,var(--blue),var(--green),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:3rem; margin-bottom:1rem;"></h2>
+        <div class="lesson-content" id="lessonContent">
+            </div>
+        <div class="lesson-cta">
+            Still don't understand this? <a href="#" class="btn btn-primary open-modal" style="padding:0.7rem 2rem; margin-left:1rem;">Sign Up for Classes!</a>
+        </div>
+    </div>
+</div>
+
+<div class="topic-sidebar">
+    <button class="topic-sidebar-btn" id="openTopicList">Learn New Topics! 📚</button>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({duration:1000, once:false, mirror:true});
+
+// Particle JS (Unchanged)
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let particles = [];
+class Particle {
+    constructor(){ this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.size=Math.random()*4+1; this.speedX=Math.random()*1-0.5; this.speedY=Math.random()*1-0.5; }
+    update(){ this.x+=this.speedX; this.y+=this.speedY; if(this.size>0.2) this.size-=0.01; }
+    draw(){ ctx.fillStyle='rgba(100,200,255,0.5)'; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
+}
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach((p,i)=>{ p.update(); p.draw(); if(p.size<=0.2) particles.splice(i,1); });
+    if(Math.random()>0.97) particles.push(new Particle());
+    requestAnimationFrame(animate);
+}
+animate();
+window.addEventListener('resize', ()=>{ canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+// 1. Navigation Fix: Smooth Scrolling (Anchor links still work, external link added in HTML)
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        if (this.getAttribute('href').length > 1) { 
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            document.querySelector(targetId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Modal Logic (Assessment Modal - Unchanged)
+const assessmentModal = document.getElementById('assessmentModal');
+const openBtns = document.querySelectorAll('.open-modal');
+const closeBtn = document.querySelector('#assessmentModal .close');
+const tabButtons = document.querySelectorAll('.tab-button');
+const programInput = document.getElementById('programType');
+
+openBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (e.currentTarget.closest('#lessonModal')) {
+            lessonModal.style.display = 'none';
+        }
+        
+        const program = btn.getAttribute('data-program');
+        if (program === 'crabs') {
+            switchTab('crabs');
+        } else {
+            switchTab('cubs');
+        }
+        assessmentModal.style.display = 'block';
+    });
+});
+
+closeBtn.onclick = () => assessmentModal.style.display = 'none';
+window.onclick = (e) => { 
+    if (e.target === assessmentModal) assessmentModal.style.display = 'none'; 
+    if (e.target === lessonModal) lessonModal.style.display = 'none';
+};
+
+function switchTab(tabName) {
+    tabButtons.forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.getAttribute('data-tab') === tabName) {
+            tab.classList.add('active');
+        }
+    });
+    programInput.value = tabName === 'cubs' ? 'Math Cubs' : 'Math Crabs';
+}
+
+tabButtons.forEach(tab => {
+    tab.addEventListener('click', () => {
+        switchTab(tab.getAttribute('data-tab'));
+    });
+});
+
+// 2 & 3. Lesson Modal Logic (More Topics & Longer Content)
+const lessonModal = document.getElementById('lessonModal');
+const lessonTitle = document.getElementById('lessonTitle');
+const lessonContent = document.getElementById('lessonContent');
+const lessonCloseBtn = document.querySelector('.lesson-close');
+const openTopicListBtn = document.getElementById('openTopicList');
+
+lessonCloseBtn.onclick = () => lessonModal.style.display = 'none';
+
+// Define lesson content data (ALL ASTERISKS REMOVED)
+const lessons = {
+    'fractions': {
+        title: 'Fractions & Decimals: Pizza Power! 🍕',
+        content: `
+            <h3>What is a Fraction? The Concept of Parts of a Whole</h3>
+            <p>A fraction is a number that represents a part of a whole. The basic structure is Numerator / Denominator. The denominator (the number on the bottom) tells you how many equal parts the whole is divided into. The numerator (the number on the top) tells you how many of those parts you are considering. For example, in 3/8, the '8' means the whole pizza was cut into 8 slices, and the '3' means you took 3 of those slices.</p>
+            <h3>Converting Fractions to Decimals</h3>
+            <p>A decimal is simply another way to write a fraction, particularly those with denominators that are powers of ten (10, 100, 1000, etc.). To convert any fraction to a decimal, you perform the division: Numerator ÷ Denominator.</p>
+            <p>Example: To convert 1/4 to a decimal, you calculate 1 ÷ 4 = 0.25. This means that 1/4 is the same as twenty-five hundredths.</p>
+            <h3>Understanding Place Value in Decimals</h3>
+            <p>Decimals extend the concept of place value past the ones place. Moving to the right of the decimal point, we have tenths, hundredths, thousandths, and so on. 0.5 is five tenths (5/10), and 0.50 is fifty hundredths (50/100). While these are equivalent, knowing the place value helps in understanding decimal operations like addition and subtraction.</p>
+        `,
+        program: 'cubs'
+    },
+    'multiplication': {
+        title: 'Early Multiplication: Building Blocks 🧱',
+        content: `
+            <h3>Multiplication as Repeated Addition (Skip Counting)</h3>
+            <p>Multiplication is a fast way to add the same number many times. For instance, 4 x 3 is a shortcut for 3 + 3 + 3 + 3. You are skip counting by 3, four times, which gives you 12. Understanding this fundamental link between addition and multiplication is essential for mastering the concept.</p>
+            <h3>Visualizing with Arrays</h3>
+            <p>One of the best visual tools for multiplication is the array. An array is an arrangement of objects in rows and columns. To visualize 5 x 4, you would draw 5 rows with 4 items in each row, or 4 columns with 5 items in each column. Counting the total items demonstrates that 5 x 4 = 20. Arrays help students see the Commutative Property of multiplication, which states that A x B = B x A. </p>
+            <h3>Introduction to Division</h3>
+            <p>Division is the inverse operation of multiplication. It involves breaking a number up into equal parts. If you know that 5 x 4 = 20, then you also know that 20 ÷ 5 = 4 and 20 ÷ 4 = 5. This is called a Fact Family, and recognizing these relationships speeds up both multiplication and division fluency.</p>
+        `,
+        program: 'cubs'
+    },
+    'measurement': {
+        title: 'Measurement: How Big is That Box? 📏',
+        content: `
+            <h3>The Importance of Standard Units</h3>
+            <p>Measurement is assigning a number to a physical quantity, such as length, weight (mass), or capacity (volume). It’s crucial to use standard units (like meters, feet, liters, or gallons) so that everyone understands the size being discussed. Always include the unit in your final answer!</p>
+            <h3>Perimeter: Distance Around a Shape</h3>
+            <p>The perimeter is the total distance around the outside of a two-dimensional shape. Think of it like walking the fence line of a playground. To calculate the perimeter of any polygon, you simply add the lengths of all its sides.</p>
+            <p>For a rectangle with length L and width W: Perimeter = 2L + 2W.</p>
+            <h3>Area: The Surface Covered</h3>
+            <p>The area is the amount of surface inside a two-dimensional boundary. Think of the amount of carpet needed to cover the floor. Area is measured in square units (e.g., cm² or ft²).</p>
+            <p>For a simple rectangle: Area = L x W.</p>
+            <p>For more complex shapes, like triangles (Area = 1/2 x base x height), understanding the base and height is key. 
+
+[Image of a rectangle illustrating perimeter and area]
+</p>
+        `,
+        program: 'cubs'
+    },
+    'place_value': {
+        title: 'Place Value: The Power of Position 🔢',
+        content: `
+            <h3>The Hindu-Arabic Numeral System</h3>
+            <p>Our number system is based on ten digits (0 through 9) and is positional, meaning the value of a digit depends on where it is placed. Moving one position to the left multiplies the value by 10, and moving one position to the right divides the value by 10.</p>
+            <p>Example: In the number 5,550:</p>
+            <ul>
+                <li>The first 5 (thousands place) is worth 5,000.</li>
+                <li>The second 5 (hundreds place) is worth 500.</li>
+                <li>The third 5 (tens place) is worth 50.</li>
+            </ul>
+            <h3>Expanded Form</h3>
+            <p>Breaking a number into its place value components is called Expanded Form. For 4,832, the expanded form is 4,000 + 800 + 30 + 2. This clearly shows the contribution of each digit to the total value of the number.</p>
+            <h3>Connecting to Decimals</h3>
+            <p>Place value extends indefinitely to the right of the decimal point. The first position is the tenths (1/10), the second is the hundredths (1/100), and so on. The decimal point acts as a barrier, separating the whole number part from the fractional part.</p>
+        `,
+        program: 'cubs'
+    },
+    'subtraction': {
+        title: 'Subtraction: Borrowing and Regrouping ➖',
+        content: `
+            <h3>Subtraction Fundamentals: Finding the Difference</h3>
+            <p>Subtraction is the process of taking one number or quantity away from another, resulting in the difference. When numbers are small (e.g., 8 - 3), it is straightforward. However, when working with multi-digit numbers, you often need to use a technique called regrouping (or borrowing).</p>
+            <h3>The Regrouping Process</h3>
+            <p>Regrouping is necessary when a digit you are subtracting from is smaller than the digit you are subtracting with, starting in the ones column and moving left. When you "borrow" from the column to the left, you are essentially taking one unit from that higher place value and converting it into ten units of the current place value.</p>
+            <p>Example: Solving 52 - 8.</p>
+            <ol>
+                <li>Start in the ones column: You cannot subtract 8 from 2.</li>
+                <li>Go to the tens column (the 5). Regroup one ten, leaving 4 tens.</li>
+                <li>The one ten (10 ones) is added to the 2 ones, making it 12 ones.</li>
+                <li>Now you subtract: 12 - 8 = 4.</li>
+                <li>Subtract the tens column: 4 - 0 = 4. The final answer is 44.</li>
+            </ol>
+            <p>Regrouping ensures that subtraction can always be performed successfully within our decimal system.</p>
+        `,
+        program: 'cubs'
+    },
+    'pre-algebra': {
+        title: 'Pre-Algebra: Variables as Puzzles ❓',
+        content: `
+            <h3>Variables and Algebraic Expressions</h3>
+            <p>Pre-Algebra introduces the concept of a variable, which is usually represented by a letter (like x, y, or a). A variable is simply a symbol that stands for an unknown number or value. An algebraic expression combines variables, numbers, and operations (like 2x + 5).</p>
+            <h3>The Balance Scale Analogy for Equations</h3>
+            <p>An equation is a statement that two expressions are equal, separated by an equals sign (=). Think of an equation like a perfectly balanced scale: whatever you do to one side of the scale, you must do to the other side to keep it balanced. This is the core principle of solving equations: The Properties of Equality.</p>
+            <h3>Solving One-Step Equations</h3>
+            <p>To solve for the variable, you must isolate it. You do this by performing the inverse operation (opposite operation) on both sides of the equation. </p>
+            <ul>
+                <li>If the operation is addition (e.g., x + 5 = 12), use subtraction: Subtract 5 from both sides. x = 7.</li>
+                <li>If the operation is multiplication (e.g., 3x = 15), use division: Divide both sides by 3. x = 5.</li>
+            </ul>
+        `,
+        program: 'crabs'
+    },
+    'geometry': {
+        title: 'Geometry Proofs: The Logic Game 💡',
+        content: `
+            <h3>The Purpose of Geometric Proofs</h3>
+            <p>Geometry is not just about measuring shapes; it is a system of deductive logic. A geometric proof is a step-by-step argument used to demonstrate that a given mathematical statement is true. It moves from what you are initially given (the Givens) to a final conclusion using established rules, definitions, and theorems.</p>
+            <h3>Two-Column Proofs</h3>
+            <p>The most common format is the Two-Column Proof, where the left column contains a sequence of Statements (what you are claiming is true), and the right column contains the corresponding Reasons (the established rule or definition that justifies that statement). </p>
+            <h3>Key Postulates (Rules)</h3>
+            <p>To write a proof, you need to understand core postulates, such as:</p>
+            <ul>
+                <li>Side-Side-Side (SSS): If three sides of one triangle are congruent to three sides of another, the triangles are congruent.</li>
+                <li>Side-Angle-Side (SAS): If two sides and the included angle of one triangle are congruent to two sides and the included angle of another, the triangles are congruent.</li>
+            </ul>
+            <p>Proofs build critical thinking skills by requiring you to structure logical arguments.</p>
+        `,
+        program: 'crabs'
+    },
+    'quadratics': {
+        title: 'Quadratic Equations: Understanding the Curve 📈',
+        content: `
+            <h3>The Standard Form and the Parabola</h3>
+            <p>A quadratic equation is any equation that can be written in the standard form: ax² + bx + c = 0, where a is not zero. The graph of a quadratic equation is a symmetrical U-shaped curve called a parabola. The value of a determines the width and direction (upward or downward) of the parabola.</p>
+            <h3>Solving Quadratic Equations (Finding the Roots)</h3>
+            <p>The solutions (also called roots or zeros) of a quadratic equation are the values of x that make the equation true. Graphically, these are the points where the parabola crosses the x-axis (the x-intercepts). There are three primary methods for finding the roots:</p>
+            <ol>
+                <li>Factoring: Decomposing the equation into two linear factors (e.g., (x - 3)(x + 2) = 0).</li>
+                <li>Completing the Square: A process that converts the quadratic equation into a perfect square trinomial.</li>
+                <li>The Quadratic Formula: A universal formula that works for any quadratic equation. It is: $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$</li>
+            </ol>
+            <p>The part under the square root, $b^2 - 4ac$, is called the discriminant, which tells you how many real solutions the equation has.</p>
+        `,
+        program: 'crabs'
+    },
+    'logarithms': {
+        title: 'Logarithms: Finding the Hidden Exponent 🔍',
+        content: `
+            <h3>Logs as Inverse of Exponents</h3>
+            <p>A logarithm is fundamentally an exponent. Logarithmic functions are the inverse operation of exponential functions. The logarithmic statement log base b of x equals y is directly equivalent to the exponential statement b to the power of y equals x (b^y = x).</p>
+            <p>The statement log base 2 of 8 equals 3 simply asks: "To what power must we raise the base 2 to get the number 8?" The answer is 3, because 2^3 = 8.</p>
+            <h3>Common and Natural Logarithms</h3>
+            <ul>
+                <li>Common Logarithm: The log with base 10, written as log(x). It is used often in science (like the pH scale or earthquake intensity).</li>
+                <li>Natural Logarithm: The log with base e (Euler's number, approximately 2.718), written as ln(x). It appears frequently in calculus and in formulas describing natural growth and decay.</li>
+            </ul>
+            <h3>The Change of Base Formula</h3>
+            <p>To calculate a log with an unusual base on most calculators, you must use the Change of Base Formula:</p>
+            <p style="text-align:center;">$\log_b(x) = \\frac{\\log(x)}{\\log(b)}$</p>
+            <p>Where log is typically the base 10 log or the natural log (ln).</p>
+        `,
+        program: 'crabs'
+    },
+    'trigonometry': {
+        title: 'Trigonometry: SOH CAH TOA 📐',
+        content: `
+            <h3>Relating Angles and Side Lengths</h3>
+            <p>Trigonometry is the branch of math that studies relationships involving the side lengths and angles of triangles, particularly right triangles (triangles containing a 90-degree angle). The three core trigonometric functions are Sine, Cosine, and Tangent.</p>
+            <h3>SOH CAH TOA (The Ratios)</h3>
+            <p>This mnemonic device helps you remember the ratios of the side lengths relative to a non-90-degree angle (theta, $\\theta$):</p>
+            <ul>
+                <li>SOH (Sine): $\\sin(\\theta) = \\frac{\\text{Opposite}}{\\text{Hypotenuse}}$</li>
+                <li>CAH (Cosine): $\\cos(\\theta) = \\frac{\\text{Adjacent}}{\\text{Hypotenuse}}$</li>
+                <li>TOA (Tangent): $\\tan(\\theta) = \\frac{\\text{Opposite}}{\\text{Adjacent}}$</li>
+            </ul>
+            <p>The hypotenuse is always the longest side, opposite the right angle. The opposite and adjacent sides depend on which angle you are referencing. 
+
+[Image of a right triangle illustrating opposite, adjacent, and hypotenuse relative to angle theta]
+</p>
+            <h3>Using Inverse Functions</h3>
+            <p>If you know the sides and need to find the angle, you use the inverse functions: $\\sin^{-1}$, $\\cos^{-1}$, and $\\tan^{-1}$ (also called arcsin, arccos, and arctan).</p>
+        `,
+        program: 'crabs'
+    },
+    'calculus_limits': {
+        title: 'Calculus: Understanding Limits ➡️',
+        content: `
+            <h3>The Foundation of Calculus</h3>
+            <p>Calculus is built on two fundamental concepts: Limits (finding instantaneous rates of change) and Integrals (finding the total accumulation). A limit is the value that a function or a sequence approaches as the input approaches some specific value. It asks, "What height is the function *trying* to reach as x gets closer and closer to a number?"</p>
+            <h3>Notation and Concept</h3>
+            <p>The limit notation is written as: $\\lim_{x \\to c} f(x) = L$. This means as x approaches c (from both the left and the right sides), the value of the function f(x) approaches L.</p>
+            <h3>When Limits Don't Exist</h3>
+            <p>For a limit to exist, the function must approach the same value from both the left side and the right side of c. A limit does not exist when:</p>
+            <ul>
+                <li>The function approaches different values from the left and right (a jump discontinuity).</li>
+                <li>The function increases or decreases without bound (approaches infinity).</li>
+            </ul>
+            <p>Limits allow us to deal with points where a function might be undefined, such as division by zero, which is essential for defining the derivative.</p>
+        `,
+        program: 'crabs'
+    },
+    'data_stats': {
+        title: 'Statistics: Mean, Median, Mode 📊',
+        content: `
+            <h3>Measures of Central Tendency</h3>
+            <p>Statistics is the science of collecting, analyzing, interpreting, and presenting data. Measures of Central Tendency are single values that attempt to describe the center or typical value of a set of data. The three most common measures are the Mean, Median, and Mode.</p>
+            <ul>
+                <li>Mean (Average): Calculated by adding up all the values in a data set and dividing by the total number of values. It's the most common measure but is sensitive to outliers (extreme values).</li>
+                <li>Median: The middle value in a data set that has been ordered from least to greatest. If the data set has an even number of values, the median is the average of the two middle numbers. The median is better than the mean when the data has strong outliers.</li>
+                <li>Mode: The value that occurs most frequently in a data set. A set can have one mode, more than one mode (bimodal, multimodal), or no mode at all.</li>
+            </ul>
+            <h3>The Range</h3>
+            <p>The range is the difference between the highest and lowest values in a data set. It is a simple measure of the data's spread or variability.</p>
+        `,
+        program: 'crabs'
+    },
+    'inequalities': {
+        title: 'Inequalities: Not Always Equal! ⚖️',
+        content: `
+            <h3>Comparison Symbols</h3>
+            <p>An inequality is a mathematical statement that compares two values or expressions that are *not* necessarily equal. The symbols used are:</p>
+            <ul>
+                <li>< (Less Than)</li>
+                <li>> (Greater Than)</li>
+                <li>≤ (Less Than or Equal To)</li>
+                <li>≥ (Greater Than or Equal To)</li>
+            </ul>
+            <p>Unlike equations, which have one or a few discrete solutions, inequalities typically have an infinite number of solutions, which is why we often graph them on a number line or coordinate plane. 
+
+[Image of a number line graphing the inequality x>3]
+</p>
+            <h3>The Crucial Flip Rule</h3>
+            <p>When solving inequalities, you follow the same inverse operation rules as solving equations, with one vital exception: If you multiply or divide both sides of the inequality by a negative number, you MUST reverse (flip) the inequality symbol.</p>
+            <p>Example: Solve -2x < 6.</p>
+            <ol>
+                <li>Divide both sides by -2.</li>
+                <li>Since you divided by a negative, flip the sign: $(-2x / -2) > (6 / -2)$.</li>
+                <li>Solution: $x > -3$.</li>
+            </ol>
+        `,
+        program: 'crabs'
+    },
+    'probability': {
+        title: 'Probability: What are the Chances? 🎲',
+        content: `
+            <h3>Defining Probability</h3>
+            <p>Probability is a measure of the likelihood that an event will occur. It is always a number between 0 and 1 (or 0% and 100%). A probability of 0 means the event is impossible; a probability of 1 means the event is certain.</p>
+            <h3>The Basic Formula</h3>
+            <p>The probability of an event A is calculated using the ratio:</p>
+            <p style="text-align:center;">$P(A) = \\frac{\\text{Number of Favorable Outcomes}}{\\text{Total Number of Possible Outcomes}}$</p>
+            <p>Example: The probability of rolling a '3' on a standard six-sided die is 1/6, because there is 1 favorable outcome (3) out of 6 possible outcomes (1, 2, 3, 4, 5, 6).</p>
+            <h3>Independent and Dependent Events</h3>
+            <p>The chance of multiple events happening depends on their relationship:</p>
+            <ul>
+                <li>Independent Events: One event does not affect the probability of the other (e.g., flipping a coin twice).</li>
+                <li>Dependent Events: The outcome of the first event changes the probability of the second event (e.g., drawing two cards from a deck without replacement).</li>
+            </ul>
+        `,
+        program: 'crabs'
+    },
+    'graphing': {
+        title: 'Graphing Lines: Slope-Intercept Form 📈',
+        content: `
+            <h3>Linear Equations and the Coordinate Plane</h3>
+            <p>A linear equation is an algebraic equation where each term is either a constant or the product of a constant and a single variable (e.g., y = 2x + 1). When graphed on a coordinate plane, the solution set forms a straight line. The coordinate plane uses two perpendicular axes, the horizontal x-axis and the vertical y-axis, meeting at the origin (0, 0).</p>
+            <h3>Slope-Intercept Form: y = mx + b</h3>
+            <p>This is the most useful form for graphing a line because it immediately tells you two crucial pieces of information:</p>
+            <ul>
+                <li>m is the Slope: The slope measures the steepness and direction of the line. It is calculated as "rise over run" (change in y / change in x).</li>
+                <li>b is the y-intercept: This is the point where the line crosses the vertical y-axis. It is the starting point for graphing.</li>
+            </ul>
+            <h3>How to Graph</h3>
+            <p>To graph an equation in this form: 1. Start by plotting the y-intercept ($b$). 2. Use the slope ($m$) to find the next point: go "up" (or down) by the rise, and "right" (or left) by the run. 3. Connect the points with a straight line. 
+
+[Image of a coordinate plane showing the graph of y=2x+1 highlighting the y-intercept and the slope triangle]
+</p>
+        `,
+        program: 'crabs'
+    }
+};
+
+// Initial state for the Lesson Modal: Show the Topic List (UPDATED TOPICS)
+const topicListHTML = `
+    <h3>Choose a Math Topic to Explore!</h3>
+    <p>Click on any topic below to view a brief, helpful lesson.</p>
+    <div class="topic-list-group">
+        <h4>— Math Cubs (K-5) Topics —</h4>
+        <button data-topic="fractions">Fractions & Decimals 🍕</button>
+        <button data-topic="multiplication">Early Multiplication 🧱</button>
+        <button data-topic="place_value">Place Value: Hundreds/Tens/Ones 🔢</button>
+        <button data-topic="subtraction">Subtraction: Regrouping ➖</button>
+        <button data-topic="measurement">Measurement: Area & Perimeter 📏</button>
+        <br>
+        <h4>— Math Crabs (6th+ / Advanced) Topics —</h4>
+        <button data-topic="pre-algebra">Pre-Algebra: Variables & Equations ❓</button>
+        <button data-topic="graphing">Graphing Lines: Slope-Intercept 📈</button>
+        <button data-topic="inequalities">Inequalities: Not Always Equal ⚖️</button>
+        <button data-topic="geometry">Geometry Proofs: The Logic Game 💡</button>
+        <button data-topic="quadratics">Quadratic Equations: The Parabola</button>
+        <button data-topic="probability">Probability: What are the Chances? 🎲</button>
+        <button data-topic="data_stats">Statistics: Mean, Median, Mode 📊</button>
+        <button data-topic="logarithms">Logarithms: Finding the Exponent 🔍</button>
+        <button data-topic="trigonometry">Trigonometry: SOH CAH TOA 📐</button>
+        <button data-topic="calculus_limits">Calculus: Understanding Limits ➡️</button>
+    </div>
+`;
+
+function showTopicList() {
+    lessonTitle.textContent = "Explore Sample Lessons";
+    lessonContent.innerHTML = topicListHTML;
+    lessonModal.querySelector('.lesson-cta').style.display = 'none'; 
+    lessonModal.style.display = 'block';
+}
+
+function showLesson(topicKey) {
+    const lesson = lessons[topicKey];
+    if (lesson) {
+        lessonTitle.textContent = lesson.title;
+        lessonContent.innerHTML = lesson.content;
+        
+        const lessonCtaBtn = lessonModal.querySelector('.lesson-cta .open-modal');
+        lessonCtaBtn.setAttribute('data-program', lesson.program);
+        
+        lessonModal.querySelector('.lesson-cta').style.display = 'block';
+        lessonModal.style.display = 'block';
+    }
+}
+
+openTopicListBtn.addEventListener('click', showTopicList);
+
+lessonContent.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON' && e.target.closest('.topic-list-group')) {
+        const topicKey = e.target.getAttribute('data-topic');
+        if (topicKey) {
+            showLesson(topicKey);
+        }
+    }
+});
+
+</script>
+</body>
+</html>
